@@ -71,7 +71,7 @@ function HomePage() {
                 </p>
             </div>
 
-            <div className="text-box">   
+            {/* <div className="text-box">   
                 <h1>My Chart</h1>
                 <p>
                     <canvas id="myChart" width="400" height="400"></canvas>
@@ -80,7 +80,7 @@ function HomePage() {
             
             <div id="body1">  
                 <h1> Personal budget using D3JS chart</h1>
-            </div>
+            </div> */}
 
         </div>
     </div>

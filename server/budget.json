@@ -1,0 +1,36 @@
+{   
+    "myBudget":[
+    {
+        "title":"Shopping",
+        "budget": 200
+    },
+    {
+        "title":"Grocery",
+        "budget": 400
+    },
+    {
+        "title":"Rent",
+        "budget": 100
+    },
+    {
+        "title":"Utilities",
+        "budget": 500
+    },
+    {
+        "title":"EMI",
+        "budget": 1100
+    },
+    {
+        "title":"Insurance",
+        "budget": 500
+    },
+    {
+        "title":"Gadgets",
+        "budget": 190
+    },
+    {
+        "title":"Cab",
+        "budget": 50
+    }
+]
+}

@@ -6,7 +6,7 @@ function Menu() {
   return (
     <div className="menu">
         <nav
-        role="Navigation"
+        // role="Navigation"
         aria-label="Main menu"
         itemScope
         itemType="https://schema.org/SiteNavigationElement"
