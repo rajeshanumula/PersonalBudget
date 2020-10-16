@@ -106,7 +106,7 @@ export default class D3JS extends React.Component {
       .attr("transform", d => `translate(${this.createArc.centroid(d)})`)
       .style("fill", "white")
       .style("font-size", 10)
-      .text(d => d.data.label);
+      .text(d => d.data.label+" ["+ d.value+"]");
   }
   render() {
     return(
