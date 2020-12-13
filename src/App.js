@@ -1,21 +1,22 @@
-import React, { useState, useEffect, useContext }  from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route,
+  useHistory
 } from "react-router-dom";
 import './App.scss';
-import Menu from './Menu/Menu'
-import Hero from './Hero/Hero'
-import HomePage from './HomePage/HomePage'
-import Footer from './Footer/Footer'
-import AboutPage from './AboutPage/AboutPage'
-import LoginPage from './LoginPage/LoginPage'
-import Chart from './Chart/Chart'
-import D3JS from './D3JS/D3JS';
-
-const myBudget ={
+import Menu from './Components/Menu'
+import Hero from './Components/Hero'
+import HomePage from './Components/HomePage'
+import Footer from './Components/Footer'
+import AboutPage from './Components/AboutPage'
+import RegisterPage from './Components/RegisterPage';
+import Dashboard from './Components/Dashboard'
+import LoginPage1 from './Components/LoginPage';
+import AddExpense from './Components/AddExpense';
+const myBudget = {
   labels: [],
   datasets: [
     {
@@ -37,39 +38,41 @@ const myBudget ={
 
 
 export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this);
+  }
+  handleSuccessfulAuth(data) {
+    let history = useHistory();
+    history.push("/dashboard");
+}
   async componentDidMount() {
-  //console.log(this.props.jsonData);
-  await axios.get(`http://localhost:3001/budget`)
-    .then(res => {
-        //console.log(res.data.myBudget);
-      for (let  i = 0; i < res.data.myBudget.length; i++){
-        myBudget.datasets[0].data[i] = res.data.myBudget[i].budget;
-        myBudget.labels[i] = res.data.myBudget[i].title;
-      }
-      //console.log(myBudget);
-      const pb = res.data.myBudget;
-      this.setState({ pb });
-    })
+    //console.log(this.props.jsonData);
+    await axios.get(`http://localhost:3001/budget`)
+      .then(res => {
+        // console.log(res.data.myBudget);
+        for (let i = 0; i < res.data.myBudget.length; i++) {
+          myBudget.datasets[0].data[i] = res.data.myBudget[i].budget;
+          myBudget.labels[i] = res.data.myBudget[i].title;
+        }
+        //console.log(myBudget);
+        const pb = res.data.myBudget;
+        this.setState({ pb });
+      })
   }
 
   render() {
-    console.log(myBudget);
     return (
       <Router>
-        <Menu />
-        <Hero />
         <div className="MainContainer">
           <Switch>
-            <Route path="/about">
-              <AboutPage/>
-            </Route>
-            <Route path="/login">
-              <LoginPage/>
-            </Route>
+              <Route exact
+              path={"/dashboard"}
+              render={props => (
+                <Dashboard/>
+              )} />
             <Route path="/">
-              <HomePage/>
-              <Chart/>
-              <D3JS/>
+              <HomePage />
             </Route>
           </Switch>
         </div>
@@ -78,40 +81,3 @@ export default class App extends React.Component {
     );
   }
 }
-
-function App1() {
-  const [data,setData]=useState({});
-  useEffect(() => {
-    const fetchData = async () =>{
-      const result = await axios(`http://localhost:3001/budget`,);
-      setData(result.data.myBudget);
-      console.log(result.data.myBudget);
-  };
-  fetchData();
-  }, []);
-  // console.log(data);
-  return (
-    <Router>
-      <Menu />
-      <Hero />
-      <div className="MainContainer">
-        <Switch>
-          <Route path="/about">
-            <AboutPage/>
-          </Route>
-          <Route path="/login">
-            <LoginPage/>
-          </Route>
-          <Route path="/">
-            <HomePage/>
-            <Chart/>
-            <D3JS/>
-          </Route>
-        </Switch>
-      </div>
-      <Footer />
-    </Router>
-  );
-}
-
-//export default App;

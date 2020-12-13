@@ -24,13 +24,19 @@ export default class Chart extends React.Component {
   }
   
   componentDidMount() {
-    axios.get(`http://localhost:3001/budget`)
+    //axios.get(`http://localhost:3001/budget`)
+      axios.get(`http://localhost:3001/categories`)
       .then(res => {
-        //console.log(res.data.myBudget);
-        for (let  i = 0; i < res.data.myBudget.length; i++){
-          this.myBudget.datasets[0].data[i] = res.data.myBudget[i].budget;
-          this.myBudget.labels[i] = res.data.myBudget[i].title;
+        console.log(res.data.myBudget);
+        for (let  i = 0; i < res.data.length; i++){
+          this.myBudget.datasets[0].data[i] = res.data[i].budget;
+          this.myBudget.labels[i] = res.data[i].category_name;
         }
+        //console.log(res.data.myBudget);
+        // for (let  i = 0; i < res.data.myBudget.length; i++){
+        //   this.myBudget.datasets[0].data[i] = res.data.myBudget[i].budget;
+        //   this.myBudget.labels[i] = res.data.myBudget[i].title;
+        // }
         //console.log(this.myBudget);
         const pb = res.data.myBudget;
         this.setState({ pb });

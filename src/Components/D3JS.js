@@ -2,7 +2,7 @@ import React, { createRef, Component } from "react";
 import * as d3 from "d3";
 import axios from 'axios';
 import '../index.scss'
-
+import {Pie} from 'react-chartjs-2';
 export default class D3JS extends React.Component {
   constructor(props) {
     super(props);
@@ -40,13 +40,18 @@ export default class D3JS extends React.Component {
     ]
 }
   componentDidMount(){
-    axios.get(`http://localhost:3001/budget`)
+    //axios.get(`http://localhost:3001/budget`)
+    axios.get(`http://localhost:3001/categories`)
     .then(res => {
-      // console.log(res.data.myBudget);
-      for (let  i = 0; i < res.data.myBudget.length; i++){
-        this.dataSource.datasets[0].data[i] = res.data.myBudget[i].budget;
-        this.dataSource.labels[i] = res.data.myBudget[i].title;
+      for (let  i = 0; i < res.data.length; i++){
+        this.dataSource.datasets[0].data[i] = res.data[i].budget;
+        this.dataSource.labels[i] = res.data[i].category_name;
       }
+      // console.log(res.data.myBudget);
+      // for (let  i = 0; i < res.data.myBudget.length; i++){
+      //   this.dataSource.datasets[0].data[i] = res.data.myBudget[i].budget;
+      //   this.dataSource.labels[i] = res.data.myBudget[i].title;
+      // }
       // console.log(this.dataSource);
       const pb = res.data.myBudget;
       this.setState({ pb });
@@ -113,6 +118,22 @@ export default class D3JS extends React.Component {
     <div>
         <h1 id="d3js">Personal budget using D3JS</h1>
         <svg ref={this.ref} />
-    </div>)
+        <Pie
+          data={this.dataSource}
+          options={{
+            title:{
+              display:true,
+              text:'Personal budget using ChartJS',
+              fontSize:20,
+              fontColor:'#000000'
+            },
+            legend:{
+              display:true,
+              position:'right'
+            }
+          }}
+        />
+    </div>
+    )
   }
 }

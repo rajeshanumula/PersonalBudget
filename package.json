@@ -9,14 +9,22 @@
     "axios": "^0.20.0",
     "chart.js": "^2.9.3",
     "cors": "^2.8.5",
+    "create-react-class": "^15.7.0",
     "d3": "^6.2.0",
+    "history": "^4.10.1",
+    "mysql": "^2.18.1",
     "node": "^14.13.1",
     "node-sass": "^4.14.1",
+    "password-hash": "^1.2.2",
     "react": "^16.14.0",
+    "react-bootstrap": "^0.32.4",
+    "react-bootstrap-validation": "^0.1.11",
     "react-chartjs-2": "^2.10.0",
+    "react-crypt-gsm": "^1.0.4",
     "react-dom": "^16.14.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.3"
+    "react-scripts": "3.4.3",
+    "semantic-ui-react": "^2.0.1"
   },
   "scripts": {
     "start": "react-scripts start",

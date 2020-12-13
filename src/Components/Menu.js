@@ -15,6 +15,10 @@ function Menu() {
                 <li><Link itemProp="url" to="/">Home</Link></li>
                 <li><Link itemProp="url" to="./about">About</Link></li>
                 <li><Link  itemProp="url" to="./login">Login</Link></li>
+                <li><Link  itemProp="url" to="./register">Register</Link></li>
+                
+                <li><Link  id="logout" itemProp="url" to="./">.</Link></li>
+                <li id="logout"><Link  itemProp="url" to="./">.</Link></li>
             </ul>
         </nav>
     </div>
