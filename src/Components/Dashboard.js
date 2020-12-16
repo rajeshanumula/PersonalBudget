@@ -60,7 +60,7 @@ export default class Dashboard extends React.Component {
 
   refresh(refreshToken) {
     console.log("Refreshing Token");
-    Axios.post("http://localhost:3001/refresh", { token: refreshToken })
+    Axios.post("http://104.236.17.203/refresh", { token: refreshToken })
       .then((response) => {
         if (response.data.success === false) {
           alert("Please log in again");

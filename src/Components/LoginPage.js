@@ -27,7 +27,7 @@ export default class LoginPage extends Component {
         event.preventDefault();
         const { email, password, loginstatus } = this.state;
         const l_email= email.toLowerCase();
-        Axios.post(`http://localhost:3001/login`, {
+        Axios.post(`http://104.236.17.203/login`, {
             email: l_email,
             password: password,
         }).then((response) => {
