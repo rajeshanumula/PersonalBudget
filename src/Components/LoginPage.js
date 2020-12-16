@@ -1,6 +1,7 @@
 import React, { Component, useState } from 'react';
 import '../CSS/LoginPage.scss'
 import Axios from 'axios';
+import Cookies from 'js-cookie'
 import { Link } from "react-router-dom";
 import '../App.scss';
 import '../CSS/allpages.scss'
@@ -23,15 +24,20 @@ export default class LoginPage extends Component {
     }
 
     handleSubmit(event) {
+        event.preventDefault();
         const { email, password, loginstatus } = this.state;
         const l_email= email.toLowerCase();
         Axios.post(`http://localhost:3001/login`, {
             email: l_email,
             password: password,
         }).then((response) => {
-            console.log(response.data[0].account_id);
-            if (response.data.length > 0) {
-                var path="/dashboard/"+response.data[0].account_id;
+            console.log(response);
+            console.log(response.data.result[0].account_id);
+            const {accessToken, refreshToken} = response.data;
+            Cookies.set("access",accessToken);
+            Cookies.set("refresh",refreshToken);
+            if (response.data.result.length > 0) {
+                var path="/dashboard/"+response.data.result[0].account_id;
                 console.log(path);
                 window.location = "/dashboard";
             }
@@ -39,7 +45,6 @@ export default class LoginPage extends Component {
                 this.setState({loginstatus: response.data.message}); 
             }
         });
-        event.preventDefault();
     }
     render() {
         return (

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React from 'react';
 import axios from 'axios';
 import {
   BrowserRouter as Router,
@@ -7,15 +7,9 @@ import {
   useHistory
 } from "react-router-dom";
 import './App.scss';
-import Menu from './Components/Menu'
-import Hero from './Components/Hero'
 import HomePage from './Components/HomePage'
 import Footer from './Components/Footer'
-import AboutPage from './Components/AboutPage'
-import RegisterPage from './Components/RegisterPage';
 import Dashboard from './Components/Dashboard'
-import LoginPage1 from './Components/LoginPage';
-import AddExpense from './Components/AddExpense';
 const myBudget = {
   labels: [],
   datasets: [

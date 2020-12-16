@@ -1,7 +1,7 @@
 import React from 'react';
 import CRUDTable from './CRUDTable'
 import '../CSS/LoginPage.scss'
-import {BrowserRouter as Router,Switch,Route} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Hero from './Hero'
 import AddExpense from './AddExpense';
 import MenuDashboard from './MenuDashboard';
@@ -14,7 +14,9 @@ import BarchartMonthly from '../Charts/BarChartMonthly';
 import LineChartMonthly from '../Charts/LineChartMonthly';
 import PiechartMonthly from '../Charts/PieChartMonthly';
 import Logout from './Logout'
+import Cookies from 'js-cookie'
 import { useHistory, useParams } from "react-router-dom";
+import Axios from 'axios';
 
 
 export default class Dashboard extends React.Component {
@@ -25,6 +27,48 @@ export default class Dashboard extends React.Component {
     this.state = {
     }
   }
+  componentWillMount() {
+
+    console.log("I am from Dashboard");
+    let accessToken = Cookies.get("access");
+    let refreshToken = Cookies.get("refresh");
+    console.log(accessToken);
+    console.log(refreshToken);
+    accessToken = this.hasAccess(accessToken, refreshToken);
+    if (!accessToken) {
+      //Say Login again
+      console.log("Log In Again");
+    }
+    else {
+      //Log in Success
+      console.log("You are logged in ");
+      //await requestLogin(accessToken, refreshToken);
+    }
+  }
+  hasAccess(accessToken, refreshToken) {
+    if (!refreshToken) {
+      return null;
+    }
+    if (accessToken === undefined) {
+      console.log("accessToken is undefined")
+      //generate new accessToken
+      accessToken = this.refresh(refreshToken);
+      return accessToken;
+    }
+    return accessToken;
+  }
+
+  refresh(refreshToken) {
+    console.log("Refreshing Token");
+    Axios.post("http://localhost:3001/refresh", { token: refreshToken })
+      .then((response) => {
+        if (response.data.success === false) {
+          alert("Please log in again");
+          window.location = '/';
+        }
+      });
+  }
+
   render() {
     return (
       <div>
@@ -53,8 +97,8 @@ export default class Dashboard extends React.Component {
                   </tr>
                 </table>
               </Route>
-              <Route path="/dashboard/">
-                <Hero/>
+              <Route path="/dashboard">
+                <Hero />
                 <table>
                   <tr>
                     <td className="chart"><PieChart /></td>
@@ -72,7 +116,7 @@ export default class Dashboard extends React.Component {
                 <EditCategory />
               </Route>
               <Route path="/logout">
-                <Logout/>
+                <Logout />
               </Route>
             </Switch>
           </div>
