@@ -40,8 +40,8 @@ export default class D3JS extends React.Component {
     ]
 }
   componentDidMount(){
-    //axios.get(`http://104.236.17.203/budget`)
-    axios.get(`http://104.236.17.203/categories`)
+    //axios.get(`http://104.236.17.203:3001/budget`)
+    axios.get(`http://104.236.17.203:3001/categories`)
     .then(res => {
       for (let  i = 0; i < res.data.length; i++){
         this.dataSource.datasets[0].data[i] = res.data[i].budget;

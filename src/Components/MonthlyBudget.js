@@ -12,7 +12,7 @@ const CRUDTable = () => {
   }, []);
 
   const loadCategories = () => {
-    axios.get("http://104.236.17.203/monthlybudget")
+    axios.get("http://104.236.17.203:3001/monthlybudget")
       .then(res => {
         setCategories(res.data);
       });

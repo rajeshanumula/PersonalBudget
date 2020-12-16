@@ -7,7 +7,7 @@ export default class Linecharts extends Component {
         this.state = { Data: {} };
     }
     componentDidMount() {
-        axios.get(`http://104.236.17.203/categories`)
+        axios.get(`http://104.236.17.203:3001/categories`)
             .then(res => {
                 console.log(res);
                 const dataSource = res.data;
