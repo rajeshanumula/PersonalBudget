@@ -18,7 +18,6 @@ export default class RegisterPage extends Component {
             registrationStatus: "",
             errors: {}
         };
-        this.registrationStatus1 = "";
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
@@ -32,35 +31,6 @@ export default class RegisterPage extends Component {
         const { firstname, lastname, email, password, confirm_password } = this.state;
         let errors = {};
         let isValid = true;
-
-        if (!firstname) {
-            isValid = false;
-            errors["name"] = "Please enter your name.";
-        }
-
-        if (!lastname) {
-            isValid = false;
-            errors["email"] = "Please enter your email Address.";
-        }
-
-        if (typeof email !== "undefined") {
-
-            var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
-            if (!pattern.test(email)) {
-                isValid = false;
-                errors["email"] = "Please enter valid email address.";
-            }
-        }
-
-        if (!password) {
-            isValid = false;
-            errors["password"] = "Please enter your password.";
-        }
-
-        if (!confirm_password) {
-            isValid = false;
-            errors["confirm_password"] = "Please enter your confirm password.";
-        }
 
         if (typeof password !== "undefined" && typeof confirm_password !== "undefined") {
 
@@ -79,7 +49,6 @@ export default class RegisterPage extends Component {
 
     handleSubmit(event) {
         if (this.validate()) {
-            console.log(this.validate());
             const { firstname, lastname, email, password, registrationStatus } = this.state;
             const l_firstname = firstname.toLowerCase();
             const l_lastname = lastname.toLowerCase();
@@ -87,7 +56,8 @@ export default class RegisterPage extends Component {
             //console.log(l_firstname);
             const plain_password = password;
             var hashedPassword = passwordHash.generate(plain_password);
-            console.log(hashedPassword);
+            //console.log(hashedPassword);
+            //console.log(this.validate());
             Axios.post(`http://localhost:3001/register`, {
                 firstname: l_firstname,
                 lastname: l_lastname,
@@ -96,17 +66,19 @@ export default class RegisterPage extends Component {
             }).then((response) => {
                 // console.log(response.data.insertId);
                 if (response.data.insertId != null) {
-                    alert("You have successfully registered..You can log in now");
+                    alert("User registered successfully! You can log in now");
                     window.location = "/login";
                 }
                 else {
-                    console.log(response.data);
-                    this.registrationStatus1 = "registration failed"
-                    console.log(this.registrationStatus1);
+                    this.setState({ registrationStatus: 1 });
                 }
             });
-            event.preventDefault();
         }
+        else {
+            //alert("Passwords do not match");
+            this.setState({ registrationStatus: 2 });
+        }
+        event.preventDefault();
     }
     render() {
         return (
@@ -160,7 +132,11 @@ export default class RegisterPage extends Component {
                         <input name="confirm_password" type='password' className='lf--input' placeholder='Confirm Password' value={this.state.confirm_password} onChange={this.handleChange} required></input>
                     </div>
                     <div className="flex-row1">
-                    <input className='lf--submit' type='submit' value='REGISTER'></input>
+                        <input className='lf--submit' type='submit' value='REGISTER'></input>
+                    </div>
+                    <div className="error">
+                        {this.state.registrationStatus === 1 && <p>Registration failed</p>}
+                        {this.state.registrationStatus === 2 && <p>Passwords not matched</p>}
                     </div>
                 </form>
             </div>

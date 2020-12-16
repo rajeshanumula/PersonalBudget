@@ -4,9 +4,8 @@ const cors = require("cors");
 const app = express();
 const port = 3001;
 const mysql = require('mysql');
-
-
-var account_id = 0;
+var date=new Date();
+var account_id = date.getTime();
 var passwordHash = require('password-hash');
 app.use(express.json());
 
@@ -90,7 +89,7 @@ app.get('/listofcategories', (req, res) => {
 
 app.get('/monthlybudget', (req, res) => {
   //connection.query('select sum(budget) as budget , m.month_name from categories c inner join months m using(month_id) where c.account_id=? group by c.month_id order by c.month_id',
-  connection.query('select sum(budget) as budget , m.month_name , group_concat(c.category_name) as category_name from categories c inner join months m using(month_id) where c.account_id=? group by c.month_id order by c.month_id',
+  connection.query('select sum(budget) as budget , m.month_name , group_concat(c.category_name SEPARATOR ",  ") as category_name from categories c inner join months m using(month_id) where c.account_id=? group by c.month_id order by c.month_id',
     [account_id],
     function (error, results, fields) {
       if (error) throw error;
@@ -145,8 +144,9 @@ app.post('/deleteexpense', (req, res) => {
     });
 });
 app.get('/logout', (req, res) => {
-  const email = 'xyzabc';
-  const password = 'xyzabc';
+  var date=new Date();
+  const email = "xyzabc";
+  const password = "xyzabc";
   connection.query('select * from users where email=? and password=?',
     [email, password],
     (err, result) => {
@@ -155,7 +155,7 @@ app.get('/logout', (req, res) => {
         res.send({ err: err })
       }
       if (result.length == 0) {
-        account_id = 999985;
+        account_id = date.getTime();
         //console.log(result);
         res.send(result);
       }

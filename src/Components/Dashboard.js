@@ -32,7 +32,7 @@ export default class Dashboard extends React.Component {
           <MenuDashboard />
           <div className="MainContainer">
             <Switch>
-              <Route path="/addexpense">
+              <Route path="/addexpense" >
                 <Hero />
                 <AddExpense />
               </Route>

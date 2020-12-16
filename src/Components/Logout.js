@@ -29,6 +29,7 @@ export default class Logout extends Component {
             }
             else {
                // console.log(response);
+               alert("You are logged out successfully");
                 window.location = "/";
             }
         });

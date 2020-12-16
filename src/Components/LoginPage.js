@@ -33,14 +33,10 @@ export default class LoginPage extends Component {
             if (response.data.length > 0) {
                 var path="/dashboard/"+response.data[0].account_id;
                 console.log(path);
-                //window.location = path.toString();
-                window.location = "/dashboard"
+                window.location = "/dashboard";
             }
             else {
-                console.log(response.data.message);
-                //this.state.loginstatus=response.data.message;
                 this.setState({loginstatus: response.data.message}); 
-                console.log(this.state.loginstatus);
             }
         });
         event.preventDefault();
