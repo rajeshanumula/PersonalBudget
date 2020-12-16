@@ -7,8 +7,32 @@
   position: absolute;
   padding-left: 550px;
 }
+
+
+
+//Login page
+
+#data-display {
+  width: 400px;
+  height: 20px;
+  color: black;
+  text-align: center;
+  font-size: medium;
+  position: absolute;
+  padding-left: 550px;
+}
+
+.rowC{display:flex; flex-direction:row;}
+
+#table-label {
+  width: 400px;
+  height: 20px;
+  color: black;
+  text-align: center;
+  font-size: medium;
+}
 #login-head {
-  width: 300px;
+  width: 230px;
   height: 20px;
   color: black;
   text-align: center;

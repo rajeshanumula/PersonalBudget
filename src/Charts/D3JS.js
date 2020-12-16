@@ -6,8 +6,8 @@ import {Pie} from 'react-chartjs-2';
 export default class D3JS extends React.Component {
   constructor(props) {
     super(props);
-    this.innerRadius=150;
-    this.outerRadius=300;
+    this.innerRadius=80;
+    this.outerRadius=150;
     this.ref = createRef();
     this.createPie = d3
       .pie()
@@ -77,9 +77,9 @@ export default class D3JS extends React.Component {
     const svg = d3.select(this.ref.current);
     const data = this.createPie(pb);
     // console.log(pb);
-    const width = 400;
-    const height=400;
-    const innerRadius=400;
+    const width = 700;
+    const height=200;
+    const innerRadius=200;
     const outerRadius=650;
 
     svg
@@ -116,23 +116,8 @@ export default class D3JS extends React.Component {
   render() {
     return(
     <div>
-        <h1 id="d3js">Personal budget using D3JS</h1>
+        <h1 id="d3js1" align="center">Personal budget</h1>
         <svg ref={this.ref} />
-        <Pie
-          data={this.dataSource}
-          options={{
-            title:{
-              display:true,
-              text:'Personal budget using ChartJS',
-              fontSize:20,
-              fontColor:'#000000'
-            },
-            legend:{
-              display:true,
-              position:'right'
-            }
-          }}
-        />
     </div>
     )
   }

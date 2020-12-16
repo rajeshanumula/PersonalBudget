@@ -1,8 +1,9 @@
 import React, { Component, useState } from 'react';
-import '../allpages.scss'
+import '../CSS/LoginPage.scss'
 import Axios from 'axios';
-
+import 'react-dropdown/style.css';
 import '../App.scss';
+import { leastIndex } from 'd3';
 
 export default class AddExpense extends Component {
     constructor(props) {
@@ -10,31 +11,31 @@ export default class AddExpense extends Component {
         this.state = {
             category_name: "",
             budget: "",
+            month: "",
             addExpenseStatus: "",
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        this.onHandleChangeNumeric=this.onHandleChangeNumeric.bind(this);
+        this.options = ['one', 'two', 'three'];
+        this.defaultOption = this.options[0];
     }
     handleChange(event) {
         this.setState({
             [event.target.name]: event.target.value
         });
     }
-    onHandleChangeNumeric = e => {
-        const value = e.target.value.replace(/\+|-/ig, '');
-        this.setState({budget: value})
-       };
     handleSubmit(event) {
-        const { category_name, budget, addExpenseStatus } = this.state;
-        const u_category_name=category_name.toUpperCase();
+        //console.log(this.menu.value);
+        const { category_name, budget, month, addExpenseStatus } = this.state;
+        const u_category_name = category_name.toUpperCase();
         Axios.post(`http://localhost:3001/addexpense`, {
             category_name: u_category_name,
             budget: budget,
+            month: this.menu.value
         }).then((response) => {
             // console.log(response.data.insertId);
             if (response.data.insertId != null) {
-                alert("Expense Added..please refresh");
+                alert("Expense Added...!");
                 window.location = "dashboard";
             }
             else {
@@ -46,37 +47,51 @@ export default class AddExpense extends Component {
     }
     render() {
         return (
-            <form onSubmit={this.handleSubmit} id="login-form">
-                <div id="login-textbox">
+            <div className='body11'>
+                <form onSubmit={this.handleSubmit} id="login-form1">
                     <h1 id="login-head">Add Expense</h1>
-                    <table>
-                        <tr>
-                            <td><label>Category:</label></td>
-                            <td><input
-                                type="text"
-                                name="category_name"
-                                placeholder="Category Name"
-                                value={this.state.category_name}
-                                onChange={this.handleChange}
-                                required
-                            /></td>
-                        </tr>
-                        <tr>
-                            <td><label>Budget($):</label></td>
-                            <td><input
-                                type="number"
-                                name="budget"
-                                placeholder="Amount"
-                                value={this.state.budget}
-                                onChange={this.handleChange}
-                                required
-                            /></td>
-                        </tr>
-                    </table><br />
-                    <button type="submit" id="login-button">Add</button>
-                    <label>{this.addExpenseStatus}</label>
-                </div>
-            </form>
+                    <div className="flex-row">
+                    
+                    <select id="dropdown" required ref={(input) => this.menu = input} className='lf--input'>
+                        <option value="1">SELECT MONTH</option>
+                        <option value="1">JANUARY</option>
+                        <option value="2">FEBRUARY</option>
+                        <option value="3">MARCH</option>
+                        <option value="4">APRIL</option>
+                        <option value="5">MAY</option>
+                        <option value="6">JUNE</option>
+                        <option value="7">JULY</option>
+                        <option value="8">AUGUST</option>
+                        <option value="9">SEPTEMBER</option>
+                        <option value="10">OCTOBER</option>
+                        <option value="11">NOVEMBER</option>
+                        <option value="12">DECEMBER</option>
+                    </select>
+                    </div>
+                    <div className="flex-row">
+                        <input className='lf--input'
+                            type="text"
+                            name="category_name"
+                            placeholder="Category Name"
+                            defaultValue={this.state.category_name}
+                            onChange={this.handleChange}
+                            required></input>
+                    </div>
+                    <div className="flex-row">
+                        <input className='lf--input'
+                            type="number"
+                            name="budget"
+                            placeholder="Amount"
+                            defaultValue={this.state.budget}
+                            onChange={this.handleChange}
+                            required
+                        ></input>
+                    </div>
+                    <div className="flex-row1">
+                        <input className='lf--submit' type='submit' value='Add'></input>
+                    </div>
+                </form>
+            </div>
         );
     }
 }

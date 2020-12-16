@@ -45,7 +45,7 @@ export default class App extends React.Component {
   handleSuccessfulAuth(data) {
     let history = useHistory();
     history.push("/dashboard");
-}
+  }
   async componentDidMount() {
     //console.log(this.props.jsonData);
     await axios.get(`http://localhost:3001/budget`)
@@ -66,10 +66,10 @@ export default class App extends React.Component {
       <Router>
         <div className="MainContainer">
           <Switch>
-              <Route exact
+            <Route exact
               path={"/dashboard"}
               render={props => (
-                <Dashboard/>
+                <Dashboard />
               )} />
             <Route path="/">
               <HomePage />

@@ -5,6 +5,7 @@ const app = express();
 const port = 3001;
 const mysql = require('mysql');
 
+
 var account_id = 0;
 var passwordHash = require('password-hash');
 app.use(express.json());
@@ -57,29 +58,53 @@ app.post('/login', (req, res) => {
           res.send(result);
         }
         else {
-          res.send({ message: "Wrong password entered" });
+          res.send({ message: 2 });
         }
       }
       else {
-        res.send({ message: "Account with this email doesn't exist"});
+        res.send({ message: 1});
       }
     });
 });
 
 app.get('/categories', (req, res) => {
-  connection.query('SELECT category_name, budget FROM mybudget.categories where account_id=?',
+  //connection.query('SELECT category_name, budget FROM mybudget.categories where account_id=?',
+  connection.query('SELECT category_name,sum(budget) as budget FROM mybudget.categories where account_id=? group by category_name;',
     [account_id],
     function (error, results, fields) {
       if (error) throw error;
+      //console.log(results);
+      res.json(results);
+    });
+});
+
+app.get('/listofcategories', (req, res) => {
+  connection.query('SELECT category_id,category_name, budget FROM mybudget.categories where account_id=?',
+    [account_id],
+    function (error, results, fields) {
+      if (error) throw error;
+      //console.log(results);
+      res.json(results);
+    });
+});
+
+app.get('/monthlybudget', (req, res) => {
+  //connection.query('select sum(budget) as budget , m.month_name from categories c inner join months m using(month_id) where c.account_id=? group by c.month_id order by c.month_id',
+  connection.query('select sum(budget) as budget , m.month_name , group_concat(c.category_name) as category_name from categories c inner join months m using(month_id) where c.account_id=? group by c.month_id order by c.month_id',
+    [account_id],
+    function (error, results, fields) {
+      if (error) throw error;
+     // console.log(results);
       res.json(results);
     });
 });
 
 app.post('/addexpense', (req, res) => {
+  const month_id=req.body.month;
   const category_name = req.body.category_name;
   const budget = req.body.budget;
-  connection.query('insert into categories (category_name,budget,account_id) values (?,?,?)',
-    [category_name, budget, account_id],
+  connection.query('insert into categories (category_name,budget,month_id,account_id) values (?,?,?,?)',
+    [category_name, budget, month_id, account_id],
     (err, result) => {
       if (err) {
         res.send({ err: err })
@@ -89,17 +114,49 @@ app.post('/addexpense', (req, res) => {
       }
     });
 });
-app.post('/logout', (req, res) => {
+
+app.put('/updateexpense', (req, res) => {
+  const category_id = req.body.category_id;
+  const budget = req.body.budget;
+  connection.query('update categories set budget=? where category_id=?',
+    [budget,category_id],
+    (err, result) => {
+      if (err) {
+        res.send({ err: err })
+      }
+      if (result) {
+        res.send(result);
+      }
+    });
+});
+
+app.post('/deleteexpense', (req, res) => {
+  const category_id = req.body.category_id;
+  //console.log(category_id);
+  connection.query('delete from categories where category_id=?',
+    [category_id],
+    (err, result) => {
+      if (err) {
+        res.send({ err: err })
+      }
+      if (result) {
+        res.send(result);
+      }
+    });
+});
+app.get('/logout', (req, res) => {
   const email = 'xyzabc';
   const password = 'xyzabc';
   connection.query('select * from users where email=? and password=?',
     [email, password],
     (err, result) => {
+      //console.log(result);
       if (err) {
         res.send({ err: err })
       }
       if (result.length == 0) {
         account_id = 999985;
+        //console.log(result);
         res.send(result);
       }
     });
@@ -110,7 +167,6 @@ app.post('/logout', (req, res) => {
 
 
 app.use(cors());
-// app.use('/',express.static('public'));
 
 const budget = require('./budget.json');
 

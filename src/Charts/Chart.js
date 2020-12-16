@@ -27,7 +27,7 @@ export default class Chart extends React.Component {
     //axios.get(`http://localhost:3001/budget`)
       axios.get(`http://localhost:3001/categories`)
       .then(res => {
-        console.log(res.data.myBudget);
+       // console.log(res.data.myBudget);
         for (let  i = 0; i < res.data.length; i++){
           this.myBudget.datasets[0].data[i] = res.data[i].budget;
           this.myBudget.labels[i] = res.data[i].category_name;

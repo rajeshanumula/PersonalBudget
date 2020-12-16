@@ -5,6 +5,7 @@ import Footer from './Footer'
 import AboutPage from './AboutPage'
 import RegisterPage from './RegisterPage';
 import LoginPage from './LoginPage';
+//import 'bootstrap/dist/css/bootstrap.css';
 import Menu from './Menu';
 import {
     BrowserRouter as Router,
@@ -44,14 +45,14 @@ export default class HomePage extends React.Component {
                                 Do you know where you are spending your money? If you really stop to track it down,
                                 you would get surprised! Proper budget management depends on real data... and this
                                 app will help you with that!
-                    </p>
+                            </p>
                         </div>
 
                         <div className="text-box">
                             <h1>Alerts</h1>
                             <p>
                                 What if your clothing budget ended? You will get an alert. The goal is to never go over the budget.
-                    </p>
+                            </p>
                         </div>
 
                         <div className="text-box">

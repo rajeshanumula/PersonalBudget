@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react';
-import '../allpages.scss'
+import '../CSS/allpages.scss'
 import Axios from 'axios';
 import '../index.scss'
 import '../App.scss';
@@ -18,29 +18,30 @@ export default class Logout extends Component {
             [event.target.name]: event.target.value
         });
     }
-
-    handleSubmit(event) {
-        const { logoutstatus } = this.state;
-        Axios.post(`http://localhost:3001/logout`, {
+    componentWillMount(){
+        Axios.get(`http://localhost:3001/logout`, {
             email: "xyzabc",
             password: "xyzabc",
         }).then((response) => {
-            console.log(response);
+            //console.log(response);
             if (response.data.length > 0) {
                 window.location = "/dashboard";
             }
             else {
-                console.log(response);
+               // console.log(response);
                 window.location = "/";
             }
         });
-        event.preventDefault();
+
+    }
+
+    handleSubmit(event) {
     }
     render() {
         return (
-            <form onSubmit={this.handleSubmit} id="login-form">
+            <form onLoad= {() => this.handleSubmit()} id="login-form">
                 <div className="menu">
-                    <button type="submit" id="login-button">Log Out</button>
+                    {/* <button type="submit" id="login-button">Log Out</button> */}
                 </div>
             </form>
         );

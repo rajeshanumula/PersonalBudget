@@ -5,14 +5,14 @@ import {
 } from "react-router-dom";
 function MenuDashboard() {
     return (
-        <div className="menu">
-            <nav
-                // role="Navigation"
-                aria-label="Main menu"
-                itemScope
-                itemType="https://schema.org/SiteNavigationElement">
+        <div className="menudesign">
+            <nav>
                 <ul>
+                    <li><Link itemProp="url" to="./dashboard">Dashboard</Link></li>
                     <li><Link itemProp="url" to="./addexpense">Add Expense</Link></li>
+                    <li><Link itemProp="url" to="./editexpense">Edit Expense</Link></li>
+                    <li><Link itemProp="url" to="./monthlybudget">Monthly Budget</Link></li>
+                    <li><Link itemProp="url" to="./logout">Log out</Link></li>
                 </ul>
             </nav>
         </div>
