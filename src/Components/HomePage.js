@@ -1,7 +1,6 @@
 import React from 'react';
 import '../App.scss';
 import Hero from './Hero'
-import Footer from './Footer'
 import AboutPage from './AboutPage'
 import RegisterPage from './RegisterPage';
 import LoginPage from './LoginPage';

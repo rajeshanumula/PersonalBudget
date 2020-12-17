@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import '../CSS/CRUD.scss'
 import '../CSS/allpages.scss'
 //import 'bootstrap/dist/css/bootstrap.css';
@@ -12,11 +11,11 @@ const CRUDTable = () => {
   }, []);
 
   const loadCategories = () => {
-    axios.get("http://104.236.17.203:3001/monthlybudget")
+    axios.get("  http://104.236.17.203:3001/monthlybudget")
       .then(res => {
         setCategories(res.data);
       });
-      console.log(categories);
+      //console.log(categories);
   };
 
   return (

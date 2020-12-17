@@ -24,8 +24,8 @@ export default class Chart extends React.Component {
   }
   
   componentDidMount() {
-    //axios.get(`http://104.236.17.203:3001/budget`)
-      axios.get(`http://104.236.17.203:3001/categories`)
+    //axios.get(`  http://104.236.17.203:3001/budget`)
+      axios.get(`  http://104.236.17.203:3001/categories`)
       .then(res => {
        // console.log(res.data.myBudget);
         for (let  i = 0; i < res.data.length; i++){

@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import '../CSS/allpages.scss'
 import Axios from 'axios';
 import '../index.scss'
@@ -19,7 +19,7 @@ export default class Logout extends Component {
         });
     }
     componentWillMount(){
-        Axios.get(`http://104.236.17.203:3001/logout`, {
+        Axios.get(`  http://104.236.17.203:3001/logout`, {
             email: "xyzabc",
             password: "xyzabc",
         }).then((response) => {
@@ -28,7 +28,7 @@ export default class Logout extends Component {
                 window.location = "/dashboard";
             }
             else {
-               // console.log(response);
+               //console.log(response);
                alert("You are logged out successfully");
                 window.location = "/";
             }

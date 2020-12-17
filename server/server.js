@@ -141,8 +141,8 @@ app.post('/login', (req, res) => {
 });
 
 app.get('/categories', (req, res) => {
-  //connection.query('SELECT category_name, budget FROM categories where account_id=?',
-  connection.query('SELECT category_name,sum(budget) as budget FROM categories where account_id=? group by category_name;',
+  connection.query('SELECT category_name, budget FROM categories where account_id=?',
+  //connection.query('SELECT category_name,sum(budget) as budget FROM categories where account_id=? group by category_name;',
     [account_id],
     function (error, results, fields) {
       if (error) throw error;
@@ -152,7 +152,8 @@ app.get('/categories', (req, res) => {
 });
 
 app.get('/listofcategories', (req, res) => {
-  connection.query('SELECT category_id,category_name, budget FROM categories where account_id=?',
+  //connection.query('SELECT category_id,category_name, budget FROM categories where account_id=?',
+  connection.query('SELECT category_id,category_name, budget, m.month_name FROM categories c  inner join months m using (month_id) where account_id=?',
     [account_id],
     function (error, results, fields) {
       if (error) throw error;

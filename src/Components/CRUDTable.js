@@ -12,14 +12,14 @@ const CRUDTable = () => {
   }, []);
 
   const loadCategories = () => {
-    axios.get("http://104.236.17.203:3001/listofcategories")
+    axios.get("  http://104.236.17.203:3001/listofcategories")
       .then(res => {
         setCategories(res.data.reverse());
       });
   };
 
   const deleteCategory = async category_id => {
-    await axios.post(`http://104.236.17.203:3001/deleteexpense`, {
+    await axios.post(`  http://104.236.17.203:3001/deleteexpense`, {
       category_id: category_id
     });
     loadCategories();
@@ -32,6 +32,7 @@ const CRUDTable = () => {
           <tbody>
             <tr>
               <th>ID</th>
+              <th>Month</th>
               <th>Category Name</th>
               <th>Budget($)</th>
               <th>Actions</th>
@@ -39,6 +40,7 @@ const CRUDTable = () => {
             {categories.map((category, index) => (
               <tr>
                 <td>{index + 1}</td>
+                <td>{category.month_name}</td>
                 <td>{category.category_name}</td>
                 <td>{category.budget}</td>
                 <td><Link class="btn btn-primary mr-2" to={`editcategory/${category.category_id}`}>

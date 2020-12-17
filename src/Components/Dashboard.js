@@ -15,7 +15,6 @@ import LineChartMonthly from '../Charts/LineChartMonthly';
 import PiechartMonthly from '../Charts/PieChartMonthly';
 import Logout from './Logout'
 import Cookies from 'js-cookie'
-import { useHistory, useParams } from "react-router-dom";
 import Axios from 'axios';
 
 
@@ -23,25 +22,25 @@ export default class Dashboard extends React.Component {
   constructor(props) {
     super(props);
     //const { account_id } = useParams();
-    //console.log(account_id);
+    ////console.log(account_id);
     this.state = {
     }
   }
   componentWillMount() {
 
-    console.log("I am from Dashboard");
+    //console.log("I am from Dashboard");
     let accessToken = Cookies.get("access");
     let refreshToken = Cookies.get("refresh");
-    console.log(accessToken);
-    console.log(refreshToken);
+    //console.log(accessToken);
+    //console.log(refreshToken);
     accessToken = this.hasAccess(accessToken, refreshToken);
     if (!accessToken) {
       //Say Login again
-      console.log("Log In Again");
+      //console.log("Log In Again");
     }
     else {
       //Log in Success
-      console.log("You are logged in ");
+      //console.log("You are logged in ");
       //await requestLogin(accessToken, refreshToken);
     }
   }
@@ -50,7 +49,7 @@ export default class Dashboard extends React.Component {
       return null;
     }
     if (accessToken === undefined) {
-      console.log("accessToken is undefined")
+      //console.log("accessToken is undefined")
       //generate new accessToken
       accessToken = this.refresh(refreshToken);
       return accessToken;
@@ -59,8 +58,8 @@ export default class Dashboard extends React.Component {
   }
 
   refresh(refreshToken) {
-    console.log("Refreshing Token");
-    Axios.post("http://104.236.17.203:3001/refresh", { token: refreshToken })
+    //console.log("Refreshing Token");
+    Axios.post("  http://104.236.17.203:3001/refresh", { token: refreshToken })
       .then((response) => {
         if (response.data.success === false) {
           alert("Please log in again");

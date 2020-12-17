@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import '../CSS/allpages.scss'
 import '../CSS/LoginPage.scss'
 import Axios from 'axios';
@@ -28,7 +28,7 @@ export default class RegisterPage extends Component {
         });
     }
     validate() {
-        const { firstname, lastname, email, password, confirm_password } = this.state;
+        const { password, confirm_password } = this.state;
         let errors = {};
         let isValid = true;
 
@@ -49,7 +49,7 @@ export default class RegisterPage extends Component {
 
     handleSubmit(event) {
         if (this.validate()) {
-            const { firstname, lastname, email, password, registrationStatus } = this.state;
+            const { firstname, lastname, email, password } = this.state;
             const l_firstname = firstname.toLowerCase();
             const l_lastname = lastname.toLowerCase();
             const l_email = email.toLowerCase();
@@ -58,13 +58,13 @@ export default class RegisterPage extends Component {
             var hashedPassword = passwordHash.generate(plain_password);
             //console.log(hashedPassword);
             //console.log(this.validate());
-            Axios.post(`http://104.236.17.203:3001/register`, {
+            Axios.post(`  http://104.236.17.203:3001/register`, {
                 firstname: l_firstname,
                 lastname: l_lastname,
                 email: l_email,
                 password: hashedPassword,
             }).then((response) => {
-                // console.log(response.data.insertId);
+                //console.log(response.data.insertId);
                 if (response.data.insertId != null) {
                     alert("User registered successfully! You can log in now");
                     window.location = "/login";

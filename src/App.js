@@ -42,7 +42,7 @@ export default class App extends React.Component {
   }
   async componentDidMount() {
     //console.log(this.props.jsonData);
-    await axios.get(`http://104.236.17.203:3001/budget`)
+    await axios.get(`  http://104.236.17.203:3001/budget`)
       .then(res => {
         // console.log(res.data.myBudget);
         for (let i = 0; i < res.data.myBudget.length; i++) {

@@ -1,10 +1,9 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import '../CSS/LoginPage.scss'
 import Axios from 'axios';
 import 'react-dropdown/style.css';
 import '../App.scss';
 import Cookies from 'js-cookie';
-import { leastIndex } from 'd3';
 
 export default class AddExpense extends Component {
     constructor(props) {
@@ -27,32 +26,32 @@ export default class AddExpense extends Component {
     }
 
     hasAccess(accessToken, refreshToken) {
-        console.log("From has AccessMethod")
+        //console.log("From has AccessMethod")
         if (!refreshToken) {
-            console.log(refreshToken);
+            //console.log(refreshToken);
             return null;
         }
         if (accessToken === undefined) {
-            console.log("accessToken is undefined")
+            //console.log("accessToken is undefined")
             //generate new accessToken
             accessToken = this.refresh(refreshToken);
-            console.log(accessToken);
+            //console.log(accessToken);
             return accessToken;
         }
         if (!accessToken) {
-            console.log("accessToken is undefined222")
+            //console.log("accessToken is undefined222")
             //generate new accessToken
             accessToken = this.refresh(refreshToken);
-            console.log(accessToken);
+            //console.log(accessToken);
             return accessToken;
         }
         return accessToken;
     }
 
     refresh(refreshToken) {
-        console.log("Refreshing Token");
+        //console.log("Refreshing Token");
         return new Promise((resolve, reject) => {
-            Axios.post("http://104.236.17.203:3001/refresh", { token: refreshToken })
+            Axios.post("  http://104.236.17.203:3001/refresh", { token: refreshToken })
                 .then((response) => {
                     if (response.data.success === false) {
                         resolve(false);
@@ -60,7 +59,7 @@ export default class AddExpense extends Component {
                         window.location = '/';
                     }
                     else {
-                        console.log(response)
+                        //console.log(response)
                         const { accessToken } = response.data;
                         Cookies.set("access", accessToken);
                         resolve(accessToken);
@@ -71,38 +70,38 @@ export default class AddExpense extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        console.log("I am from AddExpense");
+        //console.log("I am from AddExpense");
         let accessToken = Cookies.get("access");
         let refreshToken = Cookies.get("refresh");
-        console.log(accessToken);
-        console.log(refreshToken);
+        //console.log(accessToken);
+        //console.log(refreshToken);
         accessToken = this.hasAccess(accessToken, refreshToken);
-        console.log(accessToken);
+        //console.log(accessToken);
         if (!accessToken) {
             //Say Login again
-            console.log("Log In Again");
+            //console.log("Log In Again");
             alert("Log in Again")
             window.location = "/";
         }
         else {
             //Log in Success
-            console.log("You are logged in ");
+            //console.log("You are logged in ");
             //await requestLogin(accessToken, refreshToken);
 
-            const { category_name, budget, month, addExpenseStatus } = this.state;
+            const { category_name, budget } = this.state;
             const u_category_name = category_name.toUpperCase();
-            Axios.post(`http://104.236.17.203:3001/addexpense`, {
+            Axios.post(`  http://104.236.17.203:3001/addexpense`, {
                 category_name: u_category_name,
                 budget: budget,
                 month: this.menu.value
             }, { headers: { "authorization": `Bearer ${accessToken}` } })
                 .then((response) => {
-                    console.log(response);
+                    //console.log(response);
                     if (response.data.success === false) {
                         if (response.data.message === 'Access token expired') {
                             accessToken = this.refresh(refreshToken);
                             Cookies.set("access", accessToken);
-                            console.log("token refreshed");
+                            //console.log("token refreshed");
                             this.handleSubmit(event);
                         }
                         if (response.data.message === 'User not authenticated') {
@@ -115,13 +114,13 @@ export default class AddExpense extends Component {
                         window.location = "dashboard";
                     }
                     else {
-                        console.log(response.data);
-                        console.log(this.addExpenseStatus);
+                        //console.log(response.data);
+                        //console.log(this.addExpenseStatus);
                     }
                 });
         }
 
-        //console.log(this.menu.value);
+        ////console.log(this.menu.value);
 
     }
     render() {
