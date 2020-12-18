@@ -51,7 +51,7 @@ export default class AddExpense extends Component {
     refresh(refreshToken) {
         //console.log("Refreshing Token");
         return new Promise((resolve, reject) => {
-            Axios.post("  http://104.236.17.203:3001/refresh", { token: refreshToken })
+            Axios.post("http://104.236.17.203:3001/refresh", { token: refreshToken })
                 .then((response) => {
                     if (response.data.success === false) {
                         resolve(false);
@@ -90,7 +90,7 @@ export default class AddExpense extends Component {
 
             const { category_name, budget } = this.state;
             const u_category_name = category_name.toUpperCase();
-            Axios.post(`  http://104.236.17.203:3001/addexpense`, {
+            Axios.post(`http://104.236.17.203:3001/addexpense`, {
                 category_name: u_category_name,
                 budget: budget,
                 month: this.menu.value

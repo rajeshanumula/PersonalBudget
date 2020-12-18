@@ -32,7 +32,7 @@ export default class ColumnChart extends React.Component {
         //console.log("From Constructor")
     }
     componentDidMount() {
-        axios.get(`  http://104.236.17.203:3001/categories`)
+        axios.get(`http://104.236.17.203:3001/categories`)
             .then(res => {
                 for (let i = 0; i < res.data.length; i++) {
                     this.state.chartData1.datasets[0].data[i] = res.data[i].budget;

@@ -12,14 +12,14 @@ const CRUDTable = () => {
   }, []);
 
   const loadCategories = () => {
-    axios.get("  http://104.236.17.203:3001/listofcategories")
+    axios.get("http://104.236.17.203:3001/listofcategories")
       .then(res => {
         setCategories(res.data.reverse());
       });
   };
 
   const deleteCategory = async category_id => {
-    await axios.post(`  http://104.236.17.203:3001/deleteexpense`, {
+    await axios.post(`http://104.236.17.203:3001/deleteexpense`, {
       category_id: category_id
     });
     loadCategories();

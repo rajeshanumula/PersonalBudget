@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
+import { Polar } from 'react-chartjs-2';
 import axios from 'axios';
-import { Pie } from 'react-chartjs-2';
-export default class Piechart extends Component {
+export default class PolarChart extends Component {
     constructor(props) {
         super(props);
         this.state = { Data: {} };
@@ -9,7 +9,7 @@ export default class Piechart extends Component {
     componentDidMount() {
         axios.get(`http://104.236.17.203:3001/categories`)
             .then(res => {
-                //console.log(res);
+                console.log(res);
                 const dataSource = res.data;
                 let category_name = [];
                 let budget = [];
@@ -22,11 +22,19 @@ export default class Piechart extends Component {
                         labels: category_name,
                         datasets: [
                             {
-                                label: 'Budget',
+                                label: 'dataSource 2018/2019 Top Run Scorer',
                                 data: budget,
                                 backgroundColor: [
-                                    "#3cb371",'#B21F00',"#FF00FF","Blue","Red",'#2FDE00','#40E0D0','#C9DE00','#2FDE00','#B21F00','#C9DE00','#FFD700','#00FF00',"#4C4CFF","#00FFFF",'#40E0D0','#6800B4','#FA8072','#CD5C5C','#FFD700','#00FF00',"#4C4CFF","#0000FF",
-                                    "#9966FF","#4C4CFF","#f990a7","#aad2ed",'#6800B4','#FA8072','#CD5C5C'
+                                    "#3cb371",
+                                    "#0000FF",
+                                    "#9966FF",
+                                    "#4C4CFF",
+                                    "#00FFFF",
+                                    "#f990a7",
+                                    "#aad2ed",
+                                    "#FF00FF",
+                                    "Blue",
+                                    "Red"
                                 ]
                             }
                         ]
@@ -37,10 +45,9 @@ export default class Piechart extends Component {
     render() {
         return (
             <div>
-                <Pie
-                    data={this.state.Data}
-                    options={{ maintainAspectRatio: true }} />
+                <Polar data={this.state.Data}
+                options={{ maintainAspectRatio: true }} />
             </div>
-        )
+            )
     }
-} 
+}

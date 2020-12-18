@@ -23,7 +23,7 @@ const EditCategory = () => {
 
     const onSubmit = async e => {
         e.preventDefault();
-        await axios.put(`  http://104.236.17.203:3001/updateexpense`, {
+        await axios.put(`http://104.236.17.203:3001/updateexpense`, {
             budget: budget,
             category_id: category_id
         }).then((response) => {
@@ -40,7 +40,7 @@ const EditCategory = () => {
 
     const loadCategory = async () => {
 
-        const result = await axios.get("  http://104.236.17.203:3001/listofcategories/");
+        const result = await axios.get("http://104.236.17.203:3001/listofcategories/");
         for (let i = 0; i < result.data.length; i++) {
             if (result.data[i].category_id == category_id) {
                 setCategory(result.data[i]);

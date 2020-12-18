@@ -19,7 +19,7 @@ export default class Logout extends Component {
         });
     }
     componentWillMount(){
-        Axios.get(`  http://104.236.17.203:3001/logout`, {
+        Axios.get(`http://104.236.17.203:3001/logout`, {
             email: "xyzabc",
             password: "xyzabc",
         }).then((response) => {
