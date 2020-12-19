@@ -26,7 +26,7 @@ var connection = mysql.createConnection({
 var connection1 = mysql.createConnection({
   host: 'localhost',
   user: 'rajeshanumula',
-  password: 'R@jesh4375',
+  password: 'R@jesh',
   database: 'mybudget'
 });
 
@@ -38,9 +38,9 @@ app.use(function (req, res, next) {
 });
 
 async function auth(req, res, next) {
-  console.log("From Auth function")
+  //console.log("From Auth function")
   let token = req.headers["authorization"];
-  console.log("From auth"+ req.header["authorization"]);
+  //console.log("From auth"+ req.header["authorization"]);
   token = token.split(" ")[1]; //Access token
 
   jwt.verify(token, "access", async (err, user) => {
@@ -53,7 +53,7 @@ async function auth(req, res, next) {
               message: "Access token expired"
           });
       } else {
-          console.log(err);
+          //console.log(err);
           return res
               .status(403)
               .json({ err, message: "User not authenticated" });
@@ -70,7 +70,7 @@ app.post("/refresh", (req, res, next) => {
   jwt.verify(refreshToken, "refresh", (err, user) => {
       if (!err) {
           const accessToken = jwt.sign({ username: user.name }, "access", {
-              expiresIn: "20s"
+              expiresIn: "60s"
           });
           return res.json({ success: true, accessToken });
       } else {
@@ -83,7 +83,7 @@ app.post("/refresh", (req, res, next) => {
 });
 
 app.post("/protected", auth, (req, res) => {
-  console.log("Protected content");
+  //console.log("Protected content");
   return res.json({ message: "Protected content!" });
 });
 
@@ -123,12 +123,12 @@ app.post('/login', (req, res) => {
         if (compare) {
           account_id = result[0].account_id;
           //res.send(result);
-          accessToken= jwt.sign(user,"access",{expiresIn: "20s"});
+          accessToken= jwt.sign(user,"access",{expiresIn: "60s"});
           refreshToken= jwt.sign(user,"refresh",{expiresIn: "7d"});
           refreshTokens.push(refreshToken);
           res.status(201).json({result,accessToken,refreshToken})
-          console.log(accessToken);
-          console.log(refreshToken);
+          //console.log(accessToken);
+          //console.log(refreshToken);
         }
         else {
           res.send({ message: 2 });

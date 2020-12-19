@@ -16,6 +16,7 @@ import PiechartMonthly from '../Charts/PieChartMonthly';
 import Logout from './Logout'
 import Cookies from 'js-cookie'
 import Axios from 'axios';
+import PolarChart from '../Charts/PolarChart'
 
 
 export default class Dashboard extends React.Component {
@@ -59,7 +60,7 @@ export default class Dashboard extends React.Component {
 
   refresh(refreshToken) {
     //console.log("Refreshing Token");
-    Axios.post("  http://104.236.17.203:3001/refresh", { token: refreshToken })
+    Axios.post("http://104.236.17.203:3001/refresh", { token: refreshToken })
       .then((response) => {
         if (response.data.success === false) {
           alert("Please log in again");
@@ -105,7 +106,7 @@ export default class Dashboard extends React.Component {
                   </tr>
                   <tr>
                     <td className="chart"><LineChart /></td>
-                    <td className="chart"><BarChart /></td>
+                    <td className="chart"><PolarChart /></td>
                   </tr>
                 </table>
               </Route>

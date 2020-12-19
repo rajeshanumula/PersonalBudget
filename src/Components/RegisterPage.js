@@ -58,7 +58,7 @@ export default class RegisterPage extends Component {
             var hashedPassword = passwordHash.generate(plain_password);
             //console.log(hashedPassword);
             //console.log(this.validate());
-            Axios.post(`  http://104.236.17.203:3001/register`, {
+            Axios.post(`http://104.236.17.203:3001/register`, {
                 firstname: l_firstname,
                 lastname: l_lastname,
                 email: l_email,
