@@ -24,7 +24,7 @@ export default class  Barchart extends Component {
                         labels: category_name,
                         datasets: [
                             {
-                                label: 'Budget File from Dummy Branch1',
+                                label: 'Budget File',
                                 data: budget,
                                 backgroundColor: [
                                     "#3cb371",'#B21F00','#C9DE00','#2FDE00','#40E0D0','#6800B4','#FA8072','#CD5C5C','#FFD700','#00FF00',"#4C4CFF","#0000FF",
